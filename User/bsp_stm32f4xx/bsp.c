@@ -35,7 +35,7 @@ void bsp_Init(void)
 		系统时钟缺省配置为168MHz，如果需要更改，可以修改 system_stm32f4xx.c 文件
 	*/
 
-	//bsp_InitUart(); 	/* 初始化串口 */
+	bsp_InitUart(); 	/* 初始化串口 */
 	bsp_InitKey();		/* 初始化按键变量（必须在 bsp_InitTimer() 之前调用） */
 	bsp_InitTimer();	/* 初始化系统滴答定时器 */
     bsp_InitLed();

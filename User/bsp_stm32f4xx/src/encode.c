@@ -20,7 +20,7 @@ static void TIM4_Mode_Config(void)
 
 	/*- TIM3±‡¬Î∆˜ƒ£ Ω≈‰÷√ -*/
 	TIM_DeInit(TIM4);
-	TIM_TimeBaseStructure.TIM_Period = MAX_COUNT;
+	TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
 	TIM_TimeBaseStructure.TIM_Prescaler = 0;
 	TIM_TimeBaseStructure.TIM_ClockDivision =TIM_CKD_DIV1 ;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;

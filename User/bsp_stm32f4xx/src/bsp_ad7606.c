@@ -697,46 +697,41 @@ void AD7606_ISR(void)
 {
 	uint8_t i;
 	static int count=0;
-
-
 	AD7606_ReadNowAdc();
 	if (change==1)
 	{
-		for(i=0;i<2;i++)
+		g_tAdcFifo.travelBuf[g_tAdcFifo.usWrite] = g_tAD7606.sNowAdc[0];
+		g_tAdcFifo.refBuf[g_tAdcFifo.usWrite]    = g_tAD7606.sNowAdc[1];
+		if (++g_tAdcFifo.usWrite >= ADC_FIFO_SIZE)
 		{
-			g_tAdcFifo.sBuf[g_tAdcFifo.usWrite] = g_tAD7606.sNowAdc[i];
-			if (++g_tAdcFifo.usWrite >= ADC_FIFO_SIZE)
-			{
-				g_tAdcFifo.usWrite = 0;
-				g_tAdcFifo.ucFull = 1;		/* FIFO 满，主程序来不及处理数据 */
-				count++;
-				change=0;
-			}	
-		}
+			g_tAdcFifo.usWrite = 0;
+			g_tAdcFifo.ucFull = 1;		/* FIFO 满，主程序来不及处理数据 */
+			count++;
+			change=0;
+		}	
 	
 	}
 	else
 	{
-		for(i=0;i<2;i++)
+		g_tAdcFifo1.travelBuf[g_tAdcFifo1.usWrite] = g_tAD7606.sNowAdc[0];
+		g_tAdcFifo1.refBuf[g_tAdcFifo1.usWrite]    = g_tAD7606.sNowAdc[1];
+		if (++g_tAdcFifo1.usWrite >= ADC_FIFO_SIZE)
 		{
-			g_tAdcFifo1.sBuf[g_tAdcFifo1.usWrite] = g_tAD7606.sNowAdc[i];
-			if (++g_tAdcFifo1.usWrite >= ADC_FIFO_SIZE)
-			{
-				g_tAdcFifo1.usWrite = 0;
-				g_tAdcFifo1.ucFull = 1;		/* FIFO 满，主程序来不及处理数据 */
-				count++;
-				change=1;
-			}
-		}		
+			g_tAdcFifo1.usWrite = 0;
+			g_tAdcFifo1.ucFull = 1;		/* FIFO 满，主程序来不及处理数据 */
+			count++;
+			change=1;
+		}
+		
 		
 	
 	
 	}
 	if(count==32)
 	{
-		AD7606_StopRecord();
+		//AD7606_StopRecord();
 		count=0;
-		bsp_LedToggle(3);
+		//bsp_LedToggle(3);
 		
 	}
 

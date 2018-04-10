@@ -27,12 +27,17 @@ typedef enum
 
 
 /* AD数据采集缓冲区 FIFO */
+#ifndef ONLINE
 #define ADC_FIFO_SIZE	(32)	/* 总体样本数 */
+#elif
+#define  ADC_FIFO_SIZE	(128)
+#endif 
 typedef struct
 {
 	uint8_t ucOS;			/* 过采样倍率，0 - 6. 0表示无过采样 */
 	uint8_t ucRange;		/* 输入量程，0表示正负5V, 1表示正负10V */
 	int16_t sNowAdc[8];		/* 当前ADC值, 有符号数 */
+	
 }AD7606_VAR_T;
 
 typedef struct
@@ -45,6 +50,8 @@ typedef struct
 	uint8_t ucFull;			/* FIFO满标志 */
 
 	int16_t  sBuf[ADC_FIFO_SIZE];
+	int16_t  refBuf[ADC_FIFO_SIZE];
+	int16_t  travelBuf[ADC_FIFO_SIZE];
 }AD7606_FIFO_T;
 
 void bsp_InitAD7606(void);
