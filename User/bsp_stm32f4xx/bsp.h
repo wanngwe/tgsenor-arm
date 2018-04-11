@@ -73,10 +73,11 @@
 #include "bsp_dac8562_F407.h"
 #include "bsp_tim_pwm.h"
 #include "encode.h"
+#include "fft.h"
 //#include "bsp_gps.h"
 //#include "bsp_oled.h"
 //#include "bsp_mg323.h"
-#define ONLINE  1
+//#define ONLINE  0
 
 
 

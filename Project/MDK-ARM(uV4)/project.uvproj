@@ -437,6 +437,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\usbd_usr.c</FilePath>
             </File>
+            <File>
+              <FileName>fft.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\fft.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1091,6 +1096,11 @@
               <FileName>usbd_usr.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\usbd_usr.c</FilePath>
+            </File>
+            <File>
+              <FileName>fft.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\fft.c</FilePath>
             </File>
           </Files>
         </Group>

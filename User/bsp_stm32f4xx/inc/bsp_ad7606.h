@@ -27,11 +27,9 @@ typedef enum
 
 
 /* AD数据采集缓冲区 FIFO */
-#ifndef ONLINE
-#define ADC_FIFO_SIZE	(32)	/* 总体样本数 */
-#elif
-#define  ADC_FIFO_SIZE	(128)
-#endif 
+//#ifndef ONLINE
+#define ADC_FIFO_SIZE	(128)	/* 总体样本数 */
+
 typedef struct
 {
 	uint8_t ucOS;			/* 过采样倍率，0 - 6. 0表示无过采样 */

@@ -47,6 +47,7 @@ int change=0;
 AD7606_VAR_T g_tAD7606;		/* 定义1个全局变量，保存一些参数 */
 AD7606_FIFO_T g_tAdcFifo;	/* 定义FIFO结构体变量 */
 AD7606_FIFO_T g_tAdcFifo1;
+AD7606_FIFO_T *pFIFO;
 static void AD7606_CtrlLinesConfig(void);
 static void AD7606_FSMCConfig(void);
 
@@ -700,34 +701,32 @@ void AD7606_ISR(void)
 	AD7606_ReadNowAdc();
 	if (change==1)
 	{
-		g_tAdcFifo.travelBuf[g_tAdcFifo.usWrite] = g_tAD7606.sNowAdc[0];
-		g_tAdcFifo.refBuf[g_tAdcFifo.usWrite]    = g_tAD7606.sNowAdc[1];
+		g_tAdcFifo.travelBuf[g_tAdcFifo.usWrite] = g_tAD7606.sNowAdc[1];
+		g_tAdcFifo.refBuf[g_tAdcFifo.usWrite]    = g_tAD7606.sNowAdc[0];
 		if (++g_tAdcFifo.usWrite >= ADC_FIFO_SIZE)
 		{
 			g_tAdcFifo.usWrite = 0;
 			g_tAdcFifo.ucFull = 1;		/* FIFO 满，主程序来不及处理数据 */
 			count++;
 			change=0;
+		//	AD7606_StopRecord();
 		}	
-	
 	}
 	else
 	{
-		g_tAdcFifo1.travelBuf[g_tAdcFifo1.usWrite] = g_tAD7606.sNowAdc[0];
-		g_tAdcFifo1.refBuf[g_tAdcFifo1.usWrite]    = g_tAD7606.sNowAdc[1];
+		g_tAdcFifo1.travelBuf[g_tAdcFifo1.usWrite] = g_tAD7606.sNowAdc[1];
+		g_tAdcFifo1.refBuf[g_tAdcFifo1.usWrite]    = g_tAD7606.sNowAdc[0];
 		if (++g_tAdcFifo1.usWrite >= ADC_FIFO_SIZE)
 		{
 			g_tAdcFifo1.usWrite = 0;
 			g_tAdcFifo1.ucFull = 1;		/* FIFO 满，主程序来不及处理数据 */
 			count++;
 			change=1;
+			//AD7606_StopRecord();
 		}
-		
-		
-	
-	
+
 	}
-	if(count==32)
+	if(count==1)
 	{
 		//AD7606_StopRecord();
 		count=0;
